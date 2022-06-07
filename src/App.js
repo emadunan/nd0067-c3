@@ -15,10 +15,19 @@ class BooksApp extends React.Component {
     showSearchPage: false
   }
 
+  addBookPageNavigator = () => {
+    this.setState({ showSearchPage: true })
+  }
+
+  searchPageNavigator = () => {
+    this.setState({ showSearchPage: false })
+  }
+
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? <SearchPage /> : <BooksPage />}
+        {this.state.showSearchPage ? <SearchPage onSearchPageNavigate={this.searchPageNavigator} />
+          : <BooksPage onAddBookPageNavigate={this.addBookPageNavigator} />}
       </div>
     )
   }
