@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import * as BooksAPI from './BooksAPI'
-import './App.css';
+import "./App.css";
 import SearchPage from "./SearchPage";
 import BooksPage from "./BooksPage";
 
@@ -29,13 +29,13 @@ class BooksApp extends React.Component {
       <div className="app">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<BooksPage/>} />
+            <Route path="/" element={<BooksPage />} />
             <Route path="/search" element={<SearchPage />} />
           </Routes>
         </BrowserRouter>
       </div>
-    )
+    );
   }
 }
 
-export default BooksApp
+export default BooksApp;

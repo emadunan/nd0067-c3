@@ -1,16 +1,30 @@
 import React, { Component } from "react";
-import Book  from "./Book";
+import Book from "./Book";
 
 class SearchResult extends Component {
-    render() {
-        return (
-            <div className="search-books-results">
-                <ol className="books-grid">
-                    {this.props.books && this.props.books.map((el, idx) => <Book key={idx} title={el.title} authors={el.authors} imgUrl={el.imageLinks.thumbnail}/>)}
-                </ol>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className="search-books-results">
+        <ol className="books-grid">
+          {this.props.books &&
+            this.props.books.map((b, idx) => {
+              const imageUrl = b.imageLinks ? b.imageLinks.thumbnail : "";
+              return (
+                <Book
+                  key={idx}
+                  id={b.id}
+                  shelf={b.shelf}
+                  title={b.title}
+                  authors={b.authors}
+                  imgUrl={imageUrl}
+                  updateMyReadsHandler={() => {}}
+                />
+              );
+            })}
+        </ol>
+      </div>
+    );
+  }
 }
 
 export default SearchResult;
