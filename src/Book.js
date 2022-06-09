@@ -3,8 +3,7 @@ import * as booksAPI from "./BooksAPI";
 
 class Book extends Component {
   updateBookHandler = (book, targetShilf) => {
-    booksAPI.update(book, targetShilf).then((response) => {
-      console.log(book);
+    booksAPI.update(book, targetShilf).then(() => {
       this.props.updateMyReadsHandler(book, targetShilf);
     });
   };

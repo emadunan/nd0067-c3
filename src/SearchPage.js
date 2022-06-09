@@ -25,6 +25,7 @@ class SearchPage extends Component {
                 el.shelf = "read";
                 updatedBooks.push(el);
               } else {
+                el.shelf = "none";
                 updatedBooks.push(el);
               }
               return updatedBooks;
