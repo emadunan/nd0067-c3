@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Book from "./Book";
 
-class BooksShilf extends Component {
+class BooksShelf extends Component {
   render() {
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{this.props.shilfTitle}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {this.props.shilfBooks.map((book, idx) => {
+            {this.props.shelfBooks.map((book, idx) => {
               return (
                 <Book
                   key={idx}
@@ -28,4 +28,4 @@ class BooksShilf extends Component {
   }
 }
 
-export default BooksShilf;
+export default BooksShelf;

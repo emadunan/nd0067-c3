@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import * as booksAPI from "./BooksAPI";
-import BooksShilf from "./BooksShilf";
+import BooksShelf from "./BooksShelf";
 
 class BooksList extends Component {
   state = {
@@ -33,23 +33,23 @@ class BooksList extends Component {
     return (
       <div className="list-books-content">
         <div>
-          <BooksShilf
-            shilfTitle="Currently Reading"
-            shilfBooks={this.state.myReads.filter(
+          <BooksShelf
+            shelfTitle="Currently Reading"
+            shelfBooks={this.state.myReads.filter(
               (b) => b.shelf === "currentlyReading"
             )}
             updateMyReadsHandler={this.updateMyReadsHandler}
           />
-          <BooksShilf
-            shilfTitle="Want to Read"
-            shilfBooks={this.state.myReads.filter(
+          <BooksShelf
+            shelfTitle="Want to Read"
+            shelfBooks={this.state.myReads.filter(
               (b) => b.shelf === "wantToRead"
             )}
             updateMyReadsHandler={this.updateMyReadsHandler}
           />
-          <BooksShilf
-            shilfTitle="Read"
-            shilfBooks={this.state.myReads.filter((b) => b.shelf === "read")}
+          <BooksShelf
+            shelfTitle="Read"
+            shelfBooks={this.state.myReads.filter((b) => b.shelf === "read")}
             updateMyReadsHandler={this.updateMyReadsHandler}
           />
         </div>

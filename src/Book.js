@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import * as booksAPI from "./BooksAPI";
 
 class Book extends Component {
-  updateBookHandler = (book, targetShilf) => {
-    booksAPI.update(book, targetShilf).then(() => {
-      this.props.updateMyReadsHandler(book, targetShilf);
+  updateBookHandler = (book, targetShelf) => {
+    booksAPI.update(book, targetShelf).then(() => {
+      this.props.updateMyReadsHandler(book, targetShelf);
     });
   };
 
