@@ -6,14 +6,32 @@ import * as booksAPI from "./BooksAPI";
 class SearchPage extends Component {
   state = {
     searchText: "" || window.localStorage.getItem("searchText"),
-    filteredBooks: [],
   };
 
   componentDidMount() {
     if (this.state.searchText) {
       booksAPI.search(this.state.searchText).then((books) => {
         if (Array.isArray(books)) {
-          this.setState({ filteredBooks: books });
+          let updatedBooks = []
+          books.forEach(el => {
+            booksAPI.get(el.id).then(resBook => {
+              if (resBook.shelf === "currentlyReading") {
+                el.shelf = "currentlyReading";
+                updatedBooks.push(el);
+              } else if (resBook.shelf === "wantToRead") {
+                el.shelf = "wantToRead";
+                updatedBooks.push(el);
+              } else if (resBook.shelf === "read") {
+                el.shelf = "read";
+                updatedBooks.push(el);
+              } else {
+                updatedBooks.push(el);
+              }
+              return updatedBooks;
+            }).then(resData => {
+              this.setState({ filteredBooks: resData });
+            })
+          });
         } else {
           this.setState({ filteredBooks: [] });
         }
