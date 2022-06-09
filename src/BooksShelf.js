@@ -17,7 +17,7 @@ class BooksShelf extends Component {
                   title={book.title}
                   authors={book.authors}
                   imgUrl={book.imageLinks.thumbnail}
-                  updateMyReadsHandler={this.props.updateMyReadsHandler}
+                  onUpdateMyReads={this.props.onUpdateMyReads}
                 />
               );
             })}

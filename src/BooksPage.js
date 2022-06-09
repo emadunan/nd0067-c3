@@ -10,7 +10,7 @@ class BooksPage extends Component {
           <h1>MyReads</h1>
         </div>
 
-        <BooksList />
+        <BooksList myReads={this.props.myReads} onUpdateMyReads={this.props.onUpdateMyReads}/>
 
         <div className="open-search">
           <Link to="/search" id="search-btn-navigator">

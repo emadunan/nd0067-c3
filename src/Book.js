@@ -4,7 +4,7 @@ import * as booksAPI from "./BooksAPI";
 class Book extends Component {
   updateBookHandler = (book, targetShelf) => {
     booksAPI.update(book, targetShelf).then(() => {
-      this.props.updateMyReadsHandler(book, targetShelf);
+      this.props.onUpdateMyReads(book, targetShelf);
     });
   };
 

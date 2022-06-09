@@ -66,7 +66,7 @@ class SearchPage extends Component {
           onSearchPageNavigate={this.props.onSearchPageNavigate}
           onSearchBooks={this.searchBooks}
         />
-        <SearchResult books={this.state.filteredBooks} />
+        <SearchResult books={this.state.filteredBooks} onUpdateMyReads={this.props.onUpdateMyReads}/>
       </div>
     );
   }

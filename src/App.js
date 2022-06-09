@@ -1,36 +1,45 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import "./App.css";
 import SearchPage from "./SearchPage";
 import BooksPage from "./BooksPage";
 
 class BooksApp extends React.Component {
-  // state = {
-  //   /**
-  //    * TODO: Instead of using this state variable to keep track of which page
-  //    * we're on, use the URL in the browser's address bar. This will ensure that
-  //    * users can use the browser's back and forward buttons to navigate between
-  //    * pages, as well as provide a good URL they can bookmark and share.
-  //    */
-  //   showSearchPage: false
-  // }
 
-  // addBookPageNavigator = () => {
-  //   this.setState({ showSearchPage: true })
-  // }
+  state = {
+    myReads: [],
+  };
 
-  // searchPageNavigator = () => {
-  //   this.setState({ showSearchPage: false })
-  // }
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => this.setState({ myReads: books }));
+  }
+
+  updateMyReadsHandler = (book, targetShelf) => {
+    const updatedBook = {
+      id: book.id,
+      shelf: targetShelf,
+      title: book.title,
+      authors: book.authors,
+      imageLinks: { thumbnail: book.imgUrl },
+    };
+    this.setState((prevStat) => {
+      const shelfBooks = prevStat.myReads.filter(
+        (b) => b.id !== updatedBook.id
+      );
+      return {
+        myReads: [...shelfBooks, updatedBook],
+      };
+    });
+  };
 
   render() {
     return (
       <div className="app">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<BooksPage />} />
-            <Route path="/search" element={<SearchPage />} />
+            <Route path="/" element={<BooksPage myReads={this.state.myReads} onUpdateMyReads={this.updateMyReadsHandler} />} />
+            <Route path="/search" element={<SearchPage onUpdateMyReads={this.updateMyReadsHandler}/>} />
           </Routes>
         </BrowserRouter>
       </div>
