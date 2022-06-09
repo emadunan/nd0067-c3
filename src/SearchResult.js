@@ -18,6 +18,7 @@ class SearchResult extends Component {
                   authors={b.authors}
                   imgUrl={imageUrl}
                   onUpdateMyReads={this.props.onUpdateMyReads}
+                  onUpdateSearch={this.props.onUpdateSearch}
                 />
               );
             })}

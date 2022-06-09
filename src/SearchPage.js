@@ -6,6 +6,25 @@ import * as booksAPI from "./BooksAPI";
 class SearchPage extends Component {
   state = {
     searchText: "" || window.localStorage.getItem("searchText"),
+    filteredBooks: []
+  };
+
+  updateSearchHandler = (book, targetShelf) => {
+    const updatedBook = {
+      id: book.id,
+      shelf: targetShelf,
+      title: book.title,
+      authors: book.authors,
+      imageLinks: { thumbnail: book.imgUrl },
+    };
+    this.setState((prevStat) => {
+      const shelfBooks = prevStat.filteredBooks.filter(
+        (b) => b.id !== updatedBook.id
+      );
+      return {
+        filteredBooks: [...shelfBooks, updatedBook],
+      };
+    });
   };
 
   componentDidMount() {
@@ -47,7 +66,27 @@ class SearchPage extends Component {
       if (this.state.searchText) {
         booksAPI.search(this.state.searchText).then((books) => {
           if (Array.isArray(books)) {
-            this.setState({ filteredBooks: books });
+            let updatedBooks = []
+            books.forEach(el => {
+              booksAPI.get(el.id).then(resBook => {
+                if (resBook.shelf === "currentlyReading") {
+                  el.shelf = "currentlyReading";
+                  updatedBooks.push(el);
+                } else if (resBook.shelf === "wantToRead") {
+                  el.shelf = "wantToRead";
+                  updatedBooks.push(el);
+                } else if (resBook.shelf === "read") {
+                  el.shelf = "read";
+                  updatedBooks.push(el);
+                } else {
+                  el.shelf = "none";
+                  updatedBooks.push(el);
+                }
+                return updatedBooks;
+              }).then(resData => {
+                this.setState({ filteredBooks: resData });
+              })
+            });
           } else {
             this.setState({ filteredBooks: [] });
           }
@@ -66,7 +105,7 @@ class SearchPage extends Component {
           onSearchPageNavigate={this.props.onSearchPageNavigate}
           onSearchBooks={this.searchBooks}
         />
-        <SearchResult books={this.state.filteredBooks} onUpdateMyReads={this.props.onUpdateMyReads}/>
+        <SearchResult books={this.state.filteredBooks} onUpdateMyReads={this.props.onUpdateMyReads} onUpdateSearch={this.updateSearchHandler}/>
       </div>
     );
   }

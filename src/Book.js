@@ -5,6 +5,7 @@ class Book extends Component {
   updateBookHandler = (book, targetShelf) => {
     booksAPI.update(book, targetShelf).then(() => {
       this.props.onUpdateMyReads(book, targetShelf);
+      if (this.props.onUpdateSearch) this.props.onUpdateSearch(book, targetShelf);
     });
   };
 
